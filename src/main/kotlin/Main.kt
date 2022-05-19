@@ -1,43 +1,29 @@
-import com.kttdevelopment.mal4j.MyAnimeList
-import com.kttdevelopment.mal4j.manga.MangaPreview
+package bibliomanga
 
-val mal: MyAnimeList = MyAnimeList.withClientID("b36aefa585236f53ad912e313671a244")
+import bibliomanga.vue.Vue
+import javafx.application.Application
+import javafx.scene.Scene
+import javafx.stage.Stage
 
 
-fun main(args: Array<String>) {
+class Main:Application() {
+
+    override fun start(primaryStage: Stage) {
 
 
-    val askManga = mal.manga.withQuery("demon slayer").search()
+        val vue = Vue()
 
-    returnAsked(askManga)
-    print(getVolumesFromAsked(askManga[0]))
 
-}
-
-fun getVolumesFromAsked(manga : MangaPreview): Int? {
-    return manga.volumes
-}
-
-/*Donne la liste des mangas avec le bon nom*/
-fun returnAsked(title : MutableList<MangaPreview>) {
-    for (i in title.indices) {
-        if (verifGoodName(title[0].title,title[i].title)) {
-            println(title[i].title)
-        }
+        val scene = Scene(vue, 550.0, 350.0)
+        primaryStage.title="TD5B MVC"
+        primaryStage.scene=scene
+        primaryStage.show()
     }
 }
-fun verifGoodName(title1 : String, title2 : String) : Boolean {
-    var size = 0
-    if (title1.length < title2.length) {
-        size = title1.length
-    } else {
-        size = title2.length
-    }
-    var cpt = 0
-    for (i in 0 until size) {
-        if(title2.contains(title1.subSequence(0,5))) {
-            return true
-        }
-    }
-    return false
+
+fun main(){
+    Application.launch(Main::class.java)
 }
+
+
+
